@@ -39,9 +39,7 @@ function SalesCard() {
                     <td>R$ 55300.00</td>
                     <td>
                       <div className="dsmeta-red-btn-container">
-                        <div className="dsmeta-red-btn">
-                          <img src={icon} alt="Notificar" />
-                        </div>
+                        <NotificationButton />
                       </div>
                     </td>
                   </tr>
