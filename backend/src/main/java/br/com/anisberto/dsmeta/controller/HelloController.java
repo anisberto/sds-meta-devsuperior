@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+    @RequestMapping("/servidor")
 public class HelloController {
 
-    @RequestMapping("/status")
-    @GetMapping
+    @GetMapping("/status")
     public ResponseEntity<String> getStatusServer() {
         return ResponseEntity.ok("Servidor esta rodando .... ");
     }
