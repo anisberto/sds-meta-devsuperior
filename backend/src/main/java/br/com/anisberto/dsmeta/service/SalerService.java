@@ -8,6 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 import static java.rmi.server.LogStream.log;
 
 @Service
@@ -18,7 +22,15 @@ public class SalerService {
     private SalerRepository salerRepository;
 
     public Page<Sale> getAllSalers(Pageable pageable) {
-        log("Buscando vendedores no servidor com paginação! ");
         return salerRepository.findAll(pageable);
+    }
+
+    public Page<Sale> getAllSalers(String minData, String maxData, Pageable pageable) {
+        LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
+
+        LocalDate min = minData.equals("") ? today.minusDays(365) : LocalDate.parse(minData);
+        LocalDate max = maxData.equals("") ? today : LocalDate.parse(maxData);
+
+        return salerRepository.findAllWithMinAndMaxDate(min, max, pageable);
     }
 }
