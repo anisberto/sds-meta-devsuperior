@@ -2,6 +2,7 @@ package br.com.anisberto.dsmeta.controller;
 
 import br.com.anisberto.dsmeta.entities.Sale;
 import br.com.anisberto.dsmeta.service.SalerService;
+import br.com.anisberto.dsmeta.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,9 @@ public class SalerController {
     @Autowired
     private SalerService salerService;
 
+    @Autowired
+    private SmsService smsService;
+
     @GetMapping("pageable")
     public ResponseEntity<Page<Sale>> getAllSaler(Pageable pageable) {
         return ResponseEntity.ok(salerService.getAllSalers(pageable));
@@ -29,5 +33,10 @@ public class SalerController {
             @RequestParam(value = "maxData", defaultValue = "") String maxData,
             Pageable pageable) {
         return ResponseEntity.ok(salerService.getAllSalers(minData, maxData, pageable));
+    }
+
+    @GetMapping("/notification")
+    public void nofitySaler() {
+        smsService.sendSms();
     }
 }
